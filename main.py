@@ -1,6 +1,16 @@
+import sys
+import logging
+
 
 def main():
-    msg = input("Please enter the msg you would like to encrypt/decrypt: ")
+    logging.basicConfig(filename="main.log", level=logging.DEBUG)
+    logger = logging.getLogger('my_logger')
+    if len(sys.argv) == 1:
+        msg = input("Please enter the msg you would like to encrypt/decrypt: ")
+        logger.debug("from input")
+    else:
+        logger.debug("take input from command line")
+        msg = sys.argv[1]
     dict_encrypt = {
         'A': 56,
         'B': 57,
@@ -125,15 +135,23 @@ def main():
         '104': '!',
         '105': ':',
     }
-    if (msg == "") and (len(msg) < 1):
-        print("")
-    elif (msg >= '0') and (msg <= '9'):
-        msg_decrypt = msg.split(',')
-        for item in msg_decrypt:
-            print(dict_decrypt[item], end='')
-    else:
-        for char in msg:
-            print(dict_encrypt[char], end=",")
+    try:
+        if not msg:
+            print("")
+            logger.debug("Empty message")
+        elif (msg >= '0') and (msg <= '9'):
+            msg_decrypt = msg.split(',')
+            for item in msg_decrypt:
+                print(dict_decrypt[item], end='')
+            logger.debug("Decrypt")
+        else:
+            for char in msg:
+                print(dict_encrypt[char], end=",")
+            logger.debug("Encrypt")
+    except Exception as e:
+        print()
+        print(f"error: {e}")
+        logger.debug("Error")
 
 
 if __name__ == "__main__":
