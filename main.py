@@ -2,7 +2,7 @@ import sys
 import logging
 
 
-def main():
+def encrypt_decrypt_message():
     logging.basicConfig(filename="main.log", level=logging.DEBUG)
     logger = logging.getLogger('my_logger')
     if len(sys.argv) == 1:
@@ -152,6 +152,10 @@ def main():
         print()
         print(f"error: {e}")
         logger.debug("Error")
+
+
+def main():
+    encrypt_decrypt_message()
 
 
 if __name__ == "__main__":
